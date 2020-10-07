@@ -64,8 +64,8 @@ InstallFiles() {
 	GetAbi
 	mkdir -p "$cns_install_dir" || Error "Create cns install directory failed."
 	cd "$cns_install_dir"
-	$download_tool_cmd cns http://pros.cutebi.taobao69.cn:666/cns/linux_$machine || Error "cns download failed."
-	$download_tool_cmd cns.init http://pros.cutebi.taobao69.cn:666/cns/cns.init || Error "cns.init download failed."
+	$download_tool_cmd cns https://raw.githubusercontent.com/nidejianjiushiwodejian/jks/main/cns/linux_$machine || Error "cns download failed."
+	$download_tool_cmd cns.init https://raw.githubusercontent.com/nidejianjiushiwodejian/jks/main/cns/cns.init || Error "cns.init download failed."
 	sed -i "s~\[cns_start_cmd\]~$cns_start_cmd~g" cns.init
 	sed -i "s~\[cns_install_dir\]~$cns_install_dir~g" cns.init
 	ln -s "$cns_install_dir/cns.init" /etc/init.d/cns
@@ -90,7 +90,7 @@ InstallFiles() {
 	EOF
 	chmod -R 777 "$cns_install_dir" /etc/init.d/cns
 	if type systemctl; then
-		$download_tool_cmd /lib/systemd/system/cns.service http://pros.cutebi.taobao69.cn:666/cns/cns.service || Error "cns.service download failed."
+		$download_tool_cmd /lib/systemd/system/cns.service https://raw.githubusercontent.com/nidejianjiushiwodejian/jks/main/cns/cns.service || Error "cns.service download failed."
 		chmod 777 /lib/systemd/system/cns.service
 		sed -i "s~\[cns_install_dir\]~$cns_install_dir~g"  /lib/systemd/system/cns.service
 		systemctl daemon-reload
